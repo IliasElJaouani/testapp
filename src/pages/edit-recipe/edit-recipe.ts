@@ -27,7 +27,7 @@ export class EditRecipePage {
   currentRecipe: Recipe;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private recipesService: RecipesProvider) {
-    this.currentRecipe = recipesService.getCurrentRecipe();
+    this.currentRecipe = recipesService.currentRecipe;
     this.newRecipe = this.currentRecipe.id === 0; 
   }
 

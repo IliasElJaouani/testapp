@@ -7,17 +7,25 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>EditRecipeInfo</ion-title>
+    <ion-title>Details</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-<button ion-button full (click)="goToAddRecipe()">save</button>
-<br/>
-<div style="text-align: center">
+  <button ion-button full (click)="saveRecipe()">save</button>
+  <div style="text-align: center; margin-top:10px">
     <ion-img (click)="presentActionSheet()" width="160" height="160" src="../assets/imgs/placeholder.png"></ion-img>
-</div>
-
+  </div>
+  <div>
+      <ion-item>
+          <ion-label color="primary" stacked>Titre</ion-label>
+          <ion-input [(ngModel)]="currentRecipe.title" placeholder="..." clearInput></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label color="primary" stacked>Description</ion-label>          
+            <ion-textarea  [(ngModel)]="currentRecipe.description" placeholder="..."></ion-textarea>
+        </ion-item>
+  </div>
 </ion-content>

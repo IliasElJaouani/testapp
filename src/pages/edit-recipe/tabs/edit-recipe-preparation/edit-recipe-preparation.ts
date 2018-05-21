@@ -29,7 +29,7 @@ export class EditRecipePreparationPage {
   }
   
   getPreparationList() {
-    return this.recipesService.getCurrentRecipe().preparationSteps;
+    return this.recipesService.currentRecipe.preparationSteps;
   }
 
   doShowAddRow(value) {

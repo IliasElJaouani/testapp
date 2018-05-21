@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Recipe } from '../../models/Recipe';
 import { Storage } from '@ionic/storage';
 import { reorderArray } from 'ionic-angular';
+import { Subject } from 'rxjs/Subject';
 
 /*
   Generated class for the RecipesProvider provider.
@@ -14,14 +15,33 @@ import { reorderArray } from 'ionic-angular';
 export class RecipesProvider {
 
   currentRecipe: Recipe;
+  public refreshRecipes = new Subject<any>();
 
   constructor(public http: HttpClient, private storage: Storage) {
     console.log('Hello RecipesProvider Provider');
   }
+ 
+  doRefreshRecipes() {
+      this.refreshRecipes.next();
+  }
+  async saveRecipe(): Promise<boolean> {
+    let recipes:Recipe[] = await this.storage.get('myRecipes');
+    if (this.currentRecipe.id === 0 ){
+      const id = recipes.length > 0 ? Math.max.apply(Math, recipes.map(function(o){return o.id;})) + 1 : 1;
+      this.currentRecipe.id = id;
+      recipes.push(this.currentRecipe);
+    } else {
+      let updateItem = recipes.find(this.findIndexToUpdate, this.currentRecipe.id);
+      let index = recipes.indexOf(updateItem);
+      recipes[index] = this.currentRecipe;
+    }
+    await this.storage.set("myRecipes", recipes);    
+    this.doRefreshRecipes();
+    return true;
+  }
 
-  getCurrentRecipe () {
-    const result = this.currentRecipe; 
-    return result;
+  findIndexToUpdate(newItem) { 
+    return newItem.id === this;
   }
 
   setCurrentRecipe(id) {

@@ -13,6 +13,9 @@ export class HomePage {
   recipesLoaded = false;
   constructor(public navCtrl: NavController, private recipesService: RecipesProvider) {
     this.getRecipes();
+    this.recipesService.refreshRecipes.subscribe(()=>{
+      this.getRecipes();
+    })
   }
 
   goToAddRecipe () {

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
+import { RecipesProvider } from '../../../../providers/recipes/recipes';
+import { Recipe } from '../../../../models/Recipe';
 
 /**
  * Generated class for the EditRecipeInfoPage page.
@@ -14,11 +16,20 @@ import { IonicPage, NavController, NavParams, ActionSheetController } from 'ioni
 })
 export class EditRecipeInfoPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController) {
+  currentRecipe: Recipe;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, private recipesService : RecipesProvider) {
+    this.currentRecipe = recipesService.currentRecipe;
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditRecipeInfoPage');
+  }
+
+  async saveRecipe() {
+    await this.recipesService.saveRecipe();
+    console.dir(this.navCtrl);
+    this.navCtrl.parent.parent.pop();
   }
 
   presentActionSheet() {

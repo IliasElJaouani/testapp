@@ -15,6 +15,7 @@ import { EditRecipeInfoPage } from '../pages/edit-recipe/tabs/edit-recipe-info/e
 import { EditRecipeIngredientsPage } from '../pages/edit-recipe/tabs/edit-recipe-ingredients/edit-recipe-ingredients';
 import { EditRecipePreparationPage } from '../pages/edit-recipe/tabs/edit-recipe-preparation/edit-recipe-preparation';
 import { EditRecipePage } from '../pages/edit-recipe/edit-recipe';
+import { MessageProvider } from '../providers/message/message';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { EditRecipePage } from '../pages/edit-recipe/edit-recipe';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     IngredientsProvider,
-    RecipesProvider
+    RecipesProvider,
+    MessageProvider
   ]
 })
 export class AppModule {}

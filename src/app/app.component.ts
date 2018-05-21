@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { SearchPage } from '../pages/search/search';
+import { Storage } from '@ionic/storage';
 
 @Component({
   templateUrl: 'app.html'
@@ -17,7 +18,7 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private storage : Storage) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -35,9 +36,16 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.initDb();
     });
   }
-
+  async initDb() {
+    let recipes = await this.storage.get('myRecipes');
+    if (recipes == undefined || recipes == null) {
+      this.storage.set("myRecipes", []);
+    }
+    
+  }
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario

@@ -29,7 +29,7 @@ export class EditRecipeIngredientsPage {
   }
 
   getIngredientList() {
-    return this.recipesService.getCurrentRecipe().ingredients;
+    return this.recipesService.currentRecipe.ingredients;
   }
 
   doShowAddRow(value) {
